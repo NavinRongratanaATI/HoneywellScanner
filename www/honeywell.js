@@ -11,6 +11,10 @@ cordova.define("cordova/plugin/HoneywellScanner",
       exec(null, null, 'HoneywellScanner', 'trigger', [] );
     };
 
+    HoneywellScanner.prototype.registerCallback = function(callback) {
+      exec(null, null, 'HoneywellScanner', 'registerCallback', [ callback ] );
+    };
+
     // exports
     var plugin = new HoneywellScanner();
     module.exports = plugin;
