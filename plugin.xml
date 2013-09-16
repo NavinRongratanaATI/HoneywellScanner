@@ -26,6 +26,8 @@
         <header-file src="src/ios/Honeywell/Captuvo.h" />
         <source-file src="src/ios/Honeywell/libCaptuvoSDK.a" />
         <source-file src="src/ios/CDVHoneywellScanner.mm" />
+
+        <framework src="ExternalAccessory.framework" />
     </platform>
 
 </plugin>

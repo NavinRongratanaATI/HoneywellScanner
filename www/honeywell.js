@@ -7,8 +7,8 @@ cordova.define("cordova/plugin/HoneywellScanner",
     function HoneywellScanner() {
     };
 
-    HoneywellScanner.prototype.scan = function(onSuccess, onError) {
-      exec(onSuccess, onError, 'HoneywellScanner', 'scan' );
+    HoneywellScanner.prototype.trigger = function() {
+      exec(null, null, 'HoneywellScanner', 'trigger' );
     };
 
     // exports
