@@ -14,21 +14,18 @@
 @implementation CDVHoneywellScanner
 
 - (void)pluginInitialize {
-    //[super pluginInitialize];
-    [self prompt:@"pluginInitialize"];
-    //[[Captuvo sharedCaptuvoDevice]startDecoderHardware];
+    [super pluginInitialize];
+    [[Captuvo sharedCaptuvoDevice]startDecoderHardware];
 }
 
 - (void)dispose {
-    //[[Captuvo sharedCaptuvoDevice]stopDecoderHardware];
+    [[Captuvo sharedCaptuvoDevice]stopDecoderHardware];
     [super dispose];
 }
 
 //--------------------------------------------------------------------------
-- (void)scan:(CDVInvokedUrlCommand*)command {
-    [self prompt:@"start scanning"];
-    //[[Captuvo sharedCaptuvoDevice]startDecoderScanning];
-    [self prompt:@"scanning started"];
+- (void)trigger:(CDVInvokedUrlCommand*)command {
+    [[Captuvo sharedCaptuvoDevice]startDecoderScanning];
 }
 
 - (void)prompt:(NSString*) message {
