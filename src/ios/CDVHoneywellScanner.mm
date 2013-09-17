@@ -22,6 +22,8 @@
     Captuvo* scanner = [Captuvo sharedCaptuvoDevice];
     [scanner startDecoderHardware];
     [scanner addCaptuvoDelegate:self];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onActivate) name:UIApplicationWillEnterForegroundNotification object:nil];
 }
 
 - (void)dispose {
@@ -30,6 +32,10 @@
     [scanner stopDecoderHardware];
 
     [super dispose];
+}
+
+- (void) onActivate {
+    [[Captuvo sharedCaptuvoDevice] startDecoderHardware];
 }
 
 //--------------------------------------------------------------------------
@@ -60,6 +66,12 @@
 
 - (void)registerCallback:(CDVInvokedUrlCommand*)command {
     self.dataCallback = [command.arguments objectAtIndex:0];
+    [[Captuvo sharedCaptuvoDevice] startDecoderHardware];
+}
+
+- (void)disable:(CDVInvokedUrlCommand*)command {
+    self.dataCallback = nil;
+    [[Captuvo sharedCaptuvoDevice] stopDecoderHardware];
 }
 
 - (void)trigger:(CDVInvokedUrlCommand*)command {

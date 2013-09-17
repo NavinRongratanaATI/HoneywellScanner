@@ -7,12 +7,22 @@ cordova.define("cordova/plugin/HoneywellScanner",
     function HoneywellScanner() {
     };
 
-    HoneywellScanner.prototype.trigger = function() {
-      exec(null, null, 'HoneywellScanner', 'trigger', [] );
+    HoneywellScanner.prototype.enable = function(callback) {
+      // set up a global callback that is accessible from the native side
+      cordova._captuvoCallback = function(results) {
+        callback(results);
+      }
+      var args = [ 'cordova._captuvoCallback' ];
+      exec(null, null, 'HoneywellScanner', 'registerCallback', args );
     };
 
-    HoneywellScanner.prototype.registerCallback = function(callback) {
-      exec(null, null, 'HoneywellScanner', 'registerCallback', [ callback ] );
+    HoneywellScanner.prototype.disable = function() {
+      delete cordova._captuvoCallback;
+      exec(null, null, 'HoneywellScanner', 'disable', [] );
+    };
+
+    HoneywellScanner.prototype.trigger = function() {
+      exec(null, null, 'HoneywellScanner', 'trigger', [] );
     };
 
     // exports
