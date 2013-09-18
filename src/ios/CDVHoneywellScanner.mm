@@ -23,7 +23,7 @@
     [scanner startDecoderHardware];
     [scanner addCaptuvoDelegate:self];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onActivate) name:UIApplicationWillEnterForegroundNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onActivate) name:UIApplicationDidBecomeActiveNotification object:nil];
 }
 
 - (void)dispose {
