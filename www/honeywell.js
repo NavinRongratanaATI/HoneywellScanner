@@ -1,33 +1,29 @@
-cordova.define("cordova/plugin/HoneywellScanner",
+var exec = require("cordova/exec");
 
-  function (require, exports, module) {
+function HoneywellScanner() {
+};
 
-    var exec = require("cordova/exec");
+HoneywellScanner.prototype.enable = function(callback) {
+  // set up a global callback that is accessible from the native side
+  cordova._captuvoCallback = function(results) {
+    callback(results);
+  }
+  var args = [ 'cordova._captuvoCallback' ];
+  exec(null, null, 'HoneywellScanner', 'registerCallback', args );
+};
 
-    function HoneywellScanner() {
-    };
+HoneywellScanner.prototype.disable = function() {
+  delete cordova._captuvoCallback;
+  exec(null, null, 'HoneywellScanner', 'disable', [] );
+};
 
-    HoneywellScanner.prototype.enable = function(callback) {
-      // set up a global callback that is accessible from the native side
-      cordova._captuvoCallback = function(results) {
-        callback(results);
-      }
-      var args = [ 'cordova._captuvoCallback' ];
-      exec(null, null, 'HoneywellScanner', 'registerCallback', args );
-    };
+HoneywellScanner.prototype.trigger = function() {
+  exec(null, null, 'HoneywellScanner', 'trigger', [] );
+};
 
-    HoneywellScanner.prototype.disable = function() {
-      delete cordova._captuvoCallback;
-      exec(null, null, 'HoneywellScanner', 'disable', [] );
-    };
+// exports
+var plugin = new HoneywellScanner();
+module.exports = plugin;
 
-    HoneywellScanner.prototype.trigger = function() {
-      exec(null, null, 'HoneywellScanner', 'trigger', [] );
-    };
-
-    // exports
-    var plugin = new HoneywellScanner();
-    module.exports = plugin;
-  });
 
 

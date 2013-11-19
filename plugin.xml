@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <plugin xmlns="http://www.phonegap.com/ns/plugins/1.0"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    id="com.phonegap.plugins.honeywellscanner"
+    id="com.datasplice.cordova.plugin.honeywell"
     version="1.0.0">
 
     <name>HoneywellScanner</name>
@@ -12,7 +12,12 @@
         <engine name="cordova" version=">=3.0.0" />
     </engines>
 
-    <asset src="www/honeywell.js" target="honeywell.js" />
+    <!-- 
+        Adds js dependency at runtime. 
+        No need to use Cake to add js files to index.html
+        See: http://cordova.apache.org/docs/en/3.1.0/plugin_ref_spec.md.html#Plugin%20Specification 
+    -->
+    <js-module src="www/honeywell.js" name="HoneywellScanner" />
 
     <!-- ios -->
     <platform name="ios">
