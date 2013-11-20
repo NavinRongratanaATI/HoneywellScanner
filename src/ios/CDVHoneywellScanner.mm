@@ -22,8 +22,9 @@
     Captuvo* scanner = [Captuvo sharedCaptuvoDevice];
     [scanner startDecoderHardware];
     [scanner addCaptuvoDelegate:self];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onActivate) name:UIApplicationDidBecomeActiveNotification object:nil];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onDidEnterBackground) name:UIApplicationDidEnterBackgroundNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onDidBecomeActive) name:UIApplicationDidBecomeActiveNotification object:nil];
 }
 
 - (void)dispose {
@@ -34,7 +35,12 @@
     [super dispose];
 }
 
-- (void) onActivate {
+
+- (void) onDidEnterBackground {
+    [[Captuvo sharedCaptuvoDevice] stopDecoderHardware];
+}
+
+- (void) onDidBecomeActive {
     [[Captuvo sharedCaptuvoDevice] startDecoderHardware];
 }
 
