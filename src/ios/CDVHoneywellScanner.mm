@@ -5,7 +5,7 @@
 // plugin definition
 //------------------------------------------------------------------------------
 @interface CDVHoneywellScanner : CDVPlugin <CaptuvoEventsProtocol>
-@property (nonatomic, retain) NSString* dataCallback;
+@property (nonatomic, retain) NSString* callbackId;
 - (void)registerCallback:(CDVInvokedUrlCommand*)command;
 - (void)trigger:(CDVInvokedUrlCommand*)command;
 @end
@@ -14,7 +14,7 @@
 // plugin internals
 //------------------------------------------------------------------------------
 @implementation CDVHoneywellScanner
-@synthesize dataCallback = _dataCallback;
+@synthesize callbackId;
 
 - (void)pluginInitialize {
     [super pluginInitialize];
@@ -61,8 +61,13 @@
         NSLog(@"toJSONString error: %@", [error localizedDescription]);
     } else {
         NSString* jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
-        NSString* message = [NSString stringWithFormat:@"%@(%@);", self.dataCallback, jsonString];
-        [self writeJavascript:message];
+        
+        CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK
+                                                          messageAsString:jsonString ];
+        [pluginResult setKeepCallbackAsBool: YES];
+
+        [self.commandDelegate sendPluginResult:pluginResult
+                                    callbackId:self.callbackId];
     }
 }
 
@@ -71,12 +76,12 @@
 //--------------------------------------------------------------------------
 
 - (void)registerCallback:(CDVInvokedUrlCommand*)command {
-    self.dataCallback = [command.arguments objectAtIndex:0];
+    self.callbackId = command.callbackId;
     [[Captuvo sharedCaptuvoDevice] startDecoderHardware];
 }
 
 - (void)disable:(CDVInvokedUrlCommand*)command {
-    self.dataCallback = nil;
+    self.callbackId = nil;
     [[Captuvo sharedCaptuvoDevice] stopDecoderHardware];
 }
 
