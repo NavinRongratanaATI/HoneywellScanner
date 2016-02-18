@@ -49,26 +49,15 @@
 //--------------------------------------------------------------------------
 
 - (void) decoderDataReceived:(NSString*)data {
-    NSMutableDictionary* dict = [[NSMutableDictionary alloc] init];
-    [dict setObject:data     forKey:@"data"];
-
-    NSError* error = nil;
-    NSData* jsonData = [NSJSONSerialization dataWithJSONObject:dict
-                                                       options:NSJSONWritingPrettyPrinted
-                                                         error:&error];
-
-    if (error != nil) {
-        NSLog(@"toJSONString error: %@", [error localizedDescription]);
-    } else {
-        NSString* jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+    
+    NSString *jsonData = [NSString stringWithFormat:@"{\"data\":\"%@\"}", data];
         
-        CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK
-                                                          messageAsString:jsonString ];
-        [pluginResult setKeepCallbackAsBool: YES];
+    CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK
+                                                          messageAsString:jsonData ];
+    [pluginResult setKeepCallbackAsBool: YES];
 
-        [self.commandDelegate sendPluginResult:pluginResult
-                                    callbackId:self.callbackId];
-    }
+    [self.commandDelegate sendPluginResult:pluginResult
+                                callbackId:self.callbackId];
 }
 
 //--------------------------------------------------------------------------

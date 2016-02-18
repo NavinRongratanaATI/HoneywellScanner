@@ -4,8 +4,12 @@ function HoneywellScanner() {
 };
 
 HoneywellScanner.prototype.enable = function(callback) {
+  var sendResult = function(result) {
+    var data = JSON.parse(result);
+    callback(data);
+  }
   // set up a global callback that is accessible from the native side
-  exec(callback, null, 'HoneywellScanner', 'registerCallback', [] );
+  exec(sendResult, null, 'HoneywellScanner', 'registerCallback', [] );
 };
 
 HoneywellScanner.prototype.disable = function() {
