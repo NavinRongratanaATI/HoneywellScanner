@@ -1,6 +1,7 @@
-var exec = require("cordova/exec");
+var exec = require("cordova/exec"),
+cordova = require('cordova');
 
-function HoneywellScanner() {
+var HoneywellScanner = function() {
 };
 
 HoneywellScanner.prototype.enable = function(callback) {
@@ -9,16 +10,16 @@ HoneywellScanner.prototype.enable = function(callback) {
     callback(data);
   }
   // set up a global callback that is accessible from the native side
-  exec(sendResult, null, 'HoneywellScanner', 'registerCallback', [] );
+  cordova.exec(sendResult, null, 'HoneywellScanner', 'registerCallback', []);
 };
 
 HoneywellScanner.prototype.disable = function() {
   delete cordova._captuvoCallback;
-  exec(null, null, 'HoneywellScanner', 'disable', [] );
+  cordova.exec(null, null, 'HoneywellScanner', 'disable', []);
 };
 
 HoneywellScanner.prototype.trigger = function() {
-  exec(null, null, 'HoneywellScanner', 'trigger', [] );
+  cordova.exec(null, null, 'HoneywellScanner', 'trigger', []);
 };
 
 // exports
