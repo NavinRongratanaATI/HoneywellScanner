@@ -7,7 +7,7 @@
     <name>HoneywellScanner</name>
 	<repo>https://github.com/NavinRongratanaATI/HoneywellScanner</repo>
 
-    <description>Provides access to Honeywell Captuvo bar code scanner</description>
+    <description>Provides access to Honeywell Captuvo bar code scanner dev</description>
 
     <engines>
         <engine name="cordova-ios" version=">=3.0.0" />
