@@ -22,5 +22,5 @@ HoneywellScanner.prototype.trigger = function() {
 };
 
 // exports
-var plugin = new HoneywellScanner();
-module.exports = plugin;
+var honeyScanner = new HoneywellScanner();
+module.exports = honeyScanner;
